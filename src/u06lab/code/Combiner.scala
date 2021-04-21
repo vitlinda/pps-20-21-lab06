@@ -13,11 +13,11 @@ trait Functions {
 
 object FunctionsImpl extends Functions {
 
-  override def sum(a: List[Double]): Double = ???
+  override def sum(a: List[Double]): Double = a.foldRight(0.0)(_+_)
 
-  override def concat(a: Seq[String]): String = ???
+  override def concat(a: Seq[String]): String = a.foldRight("")(_+_)
 
-  override def max(a: List[Int]): Int = ???
+  override def max(a: List[Int]): Int = a.foldRight(Int.MinValue)((e1, e2) => if(e1 > e2) e1 else e2 )
 }
 
 
