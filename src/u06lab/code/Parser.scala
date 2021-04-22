@@ -30,14 +30,13 @@ class NonEmptyParser(chars: Set[Char]) extends BasicParser(chars) with NonEmpty[
 
 trait NotTwoConsecutive[T] extends Parser[T] {
   private var elem: Option[T] = Option.empty
-  private var consecEquals = false
-  private def consecutiveEquals(e: T) = elem match {
-    case None => elem = Some(e); consecEquals = false
-    case Some(t) if(t == e) => consecEquals = true
-    case Some(_) => elem = Some(e); consecEquals = false
+  private def consecutiveEquals(e: T): Boolean = elem match {
+    case None => elem = Some(e); false
+    case Some(t) if(t == e) => true
+    case Some(_) => elem = Some(e); false
   }
 
-  abstract override def parse(t: T): Boolean = {consecutiveEquals(t); !consecEquals && super.parse(t)}
+  abstract override def parse(t: T): Boolean = {!consecutiveEquals(t) && super.parse(t)}
   abstract override def end(): Boolean = super.end()
 }
 

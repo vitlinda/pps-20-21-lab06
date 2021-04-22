@@ -41,12 +41,12 @@ class TryParsers {
     assertFalse(parserNTCNE.parseAll("".toList))
   }
 
-  @Test
-  def testStringParser = {
-    assertTrue(sparser.parseAll("aabc".toList))
-    assertFalse(sparser.parseAll("aabcdc".toList))
-    assertTrue(sparser.parseAll("".toList))
-  }
+//  @Test
+//  def testStringParser = {
+//    assertTrue(sparser.parseAll("aabc".toList))
+//    assertFalse(sparser.parseAll("aabcdc".toList))
+//    assertTrue(sparser.parseAll("".toList))
+//  }
 }
 
 
