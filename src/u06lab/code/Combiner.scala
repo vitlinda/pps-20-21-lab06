@@ -19,11 +19,11 @@ object FunctionsImpl extends Functions {
 
   import ImplicitCombiner._
 
-  override def sum(a: List[Double]): Double = combine(a)(sumCombine)
+  override def sum(a: List[Double]): Double = combine(a) /* (sumCombine) */
 
-  override def concat(a: Seq[String]): String = combine(a)(concatCombine)
+  override def concat(a: Seq[String]): String = combine(a) /* (concatCombine) */
 
-  override def max(a: List[Int]): Int = combine(a)(maxCombine)
+  override def max(a: List[Int]): Int = combine(a) /* (maxCombine) */
 
   private def combine[T: Combiner](a: Iterable[T]): T = {
     var elem = implicitly[Combiner[T]].unit
