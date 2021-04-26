@@ -23,15 +23,16 @@ object TicTacToe {
 
 //  placeAnyMark(List(Mark(0,0,O), Mark(0,1, O)),X)
   def placeAnyMark(board: Board, player: Player): Seq[Board] = board match {
-    case Nil => List(board)
+    case Nil => for {
+      x <- 0 to 2
+      y <- 0 to 2
+      if(find(board, x,y).isEmpty)
+    } yield List(Mark(x, y, player))
     case h :: t => for {
       boards <- placeAnyMark(t, player)
-      y <- 0 to 2
-
-      b = List(Mark(h.x, h.y, h.player))
-    } yield board
+    } yield Mark(h.x, h.y, h.player) :: boards
   }
-  
+
   def computeAnyGame(player: Player, moves: Int): Stream[Game] = ???
 
   def printBoards(game: Seq[Board]): Unit =

@@ -19,10 +19,13 @@ class TicTacToeTest {
   def testPlaceAnyMark = {
     // Exercise 2: implement placeAnyMark such that..
 
-    printBoards(placeAnyMark(List(),X)) //tutte possibili mosse di X
+//    printBoards(placeAnyMark(List(),X)) //tutte possibili mosse di X
     //... ... ..X ... ... X.. ... ... X..
     //... ..X ... ... .X. ... ... X.. ...
     //..X ... ... .X. ... ... X.. ... ...
+
+    println()
+
     printBoards(placeAnyMark(List(Mark(0,0,O)),X)) //tutte le possibili mosse di X in cui c'è anche 0 nella posizione 0,0
     //O.. O.. O.X O.. O.. OX. O.. O..
     //... ..X ... ... .X. ... ... X..
