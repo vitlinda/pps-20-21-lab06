@@ -32,12 +32,11 @@ object TicTacToe {
     case _ :: t => find(t, x, y)
   }
 
-  //  placeAnyMark(List(Mark(0,0,O), Mark(0,1, O)),X)
   def placeAnyMark(board: Board, player: Player): Seq[Board] = for {
       x <- 0 to 2
       y <- 0 to 2
     if(find(board, x, y).isEmpty)
-    } yield Mark(x,y, player) :: board
+    } yield Mark(x, y, player) :: board
 
   def computeAnyGame(player: Player, moves: Int): Stream[Game] = ???
 
