@@ -19,10 +19,12 @@ class TicTacToeTest {
   def testPlaceAnyMark = {
     // Exercise 2: implement placeAnyMark such that..
 
-//    printBoards(placeAnyMark(List(),X)) //tutte possibili mosse di X
+    printBoards(placeAnyMark(List(),X)) //tutte possibili mosse di X
     //... ... ..X ... ... X.. ... ... X..
     //... ..X ... ... .X. ... ... X.. ...
     //..X ... ... .X. ... ... X.. ... ...
+
+    assertEquals(9, placeAnyMark(List(),X).size)
 
     println()
 
@@ -30,6 +32,11 @@ class TicTacToeTest {
     //O.. O.. O.X O.. O.. OX. O.. O..
     //... ..X ... ... .X. ... ... X..
     //..X ... ... .X. ... ... X.. ...
+
+    assertEquals(8, placeAnyMark(List(Mark(0,0,O)),X).size)
+    assertEquals(7, placeAnyMark(List(Mark(0,0,O), Mark(0,1,O)),X).size)
+
+
   }
 
   @Test
