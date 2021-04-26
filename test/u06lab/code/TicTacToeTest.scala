@@ -11,16 +11,19 @@ class TicTacToeTest {
     assertEquals(Some(X), find(List(Mark(0,0,X)), 0, 0))
     assertEquals(Some(O), find(List(Mark(0,0,X),Mark(0,1,O),Mark(0,2,X)), 0, 1))
     assertEquals(None, find(List(Mark(0,0,X),Mark(0,1,O),Mark(0,2,X)), 1, 1))
+
+    printBoards(Seq(List()))
   }
 
   @Test
   def testPlaceAnyMark = {
     // Exercise 2: implement placeAnyMark such that..
-    printBoards(placeAnyMark(List(),X))
-    //... ... ..X ... ... .X. ... ... X..
+
+    printBoards(placeAnyMark(List(),X)) //tutte possibili mosse di X
+    //... ... ..X ... ... X.. ... ... X..
     //... ..X ... ... .X. ... ... X.. ...
     //..X ... ... .X. ... ... X.. ... ...
-    printBoards(placeAnyMark(List(Mark(0,0,O)),X))
+    printBoards(placeAnyMark(List(Mark(0,0,O)),X)) //tutte le possibili mosse di X in cui c'è anche 0 nella posizione 0,0
     //O.. O.. O.X O.. O.. OX. O.. O..
     //... ..X ... ... .X. ... ... X..
     //..X ... ... .X. ... ... X.. ...
@@ -40,7 +43,11 @@ class TicTacToeTest {
     //... .X. .X. .X. .X.
   }
 
-  // Exercise 4 (VERY ADVANCED!) -- modify the above one so as to stop each game when someone won!!
+  @Test
+  def testStopEachGames = {
+    // Exercise 4 (VERY ADVANCED!) -- modify the above one so as to stop each game when someone won!!
+  }
+
 
 
 }

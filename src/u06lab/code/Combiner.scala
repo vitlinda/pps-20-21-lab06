@@ -5,6 +5,29 @@ package u06lab.code
  * in TryFunctions works correctly.
  */
 
+trait Combiner[A] {
+  def unit: A
+  def combine(a: A, b: A): A
+}
+
+object ImplicitCombiner {
+
+  implicit object sumCombine extends Combiner[Double] {
+    override def unit: Double = 0.0
+    override def combine(a: Double, b: Double): Double = a + b
+  }
+
+  implicit object concatCombine extends Combiner[String] {
+    override def unit: String = ""
+    override def combine(a: String, b: String): String = a + b
+  }
+
+  implicit object maxCombine extends Combiner[Int] {
+    override def unit: Int = Int.MinValue
+    override def combine(a: Int, b: Int): Int = if (a > b) a else b
+  }
+}
+
 trait Functions {
   def sum(a: List[Double]): Double
   def concat(a: Seq[String]): String
@@ -46,26 +69,3 @@ object FunctionsImpl extends Functions {
   * When all works, note we completely avoided duplications..
  */
 
-trait Combiner[A] {
-  def unit: A
-  def combine(a: A, b: A): A
-}
-
-object ImplicitCombiner {
-
-  implicit object sumCombine extends Combiner[Double] {
-    override def unit: Double = 0.0
-    override def combine(a: Double, b: Double): Double = a + b
-  }
-
-  implicit object concatCombine extends Combiner[String] {
-    override def unit: String = ""
-    override def combine(a: String, b: String): String = a + b
-  }
-
-  implicit object maxCombine extends Combiner[Int] {
-    override def unit: Int = Int.MinValue
-    override def combine(a: Int, b: Int): Int = if (a > b) a else b
-  }
-
-}
