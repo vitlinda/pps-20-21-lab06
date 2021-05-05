@@ -50,6 +50,7 @@ object FunctionsImpl extends Functions {
 
   private def combine[T: Combiner](a: Iterable[T]): T = {
     var elem = implicitly[Combiner[T]].unit
+
     a.foreach(e => elem = implicitly[Combiner[T]].combine(elem, e))
     elem
   }

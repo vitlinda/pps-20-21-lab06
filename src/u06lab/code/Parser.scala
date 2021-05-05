@@ -31,7 +31,7 @@ class NonEmptyParser(chars: Set[Char]) extends BasicParser(chars) with NonEmpty[
 trait NotTwoConsecutive[T] extends Parser[T] {
   private[this] var elem: Option[T] = Option.empty
   private def consecutiveEquals(e: T): Boolean = elem match {
-    case Some(t) if(t == e) => true
+    case Some(`e`) => true //Some(t) if(t == e) => true
     case _ => elem = Some(e); false
   }
 
