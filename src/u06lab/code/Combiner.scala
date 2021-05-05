@@ -7,6 +7,7 @@ package u06lab.code
 
 trait Combiner[A] {
   def unit: A
+
   def combine(a: A, b: A): A
 }
 
@@ -14,23 +15,28 @@ object ImplicitCombiner {
 
   implicit object sumCombine extends Combiner[Double] {
     override def unit: Double = 0.0
+
     override def combine(a: Double, b: Double): Double = a + b
   }
 
   implicit object concatCombine extends Combiner[String] {
     override def unit: String = ""
+
     override def combine(a: String, b: String): String = a + b
   }
 
   implicit object maxCombine extends Combiner[Int] {
     override def unit: Int = Int.MinValue
+
     override def combine(a: Int, b: Int): Int = if (a > b) a else b
   }
 }
 
 trait Functions {
   def sum(a: List[Double]): Double
+
   def concat(a: Seq[String]): String
+
   def max(a: List[Int]): Int // gives Int.MinValue if a is empty
 }
 
@@ -48,12 +54,13 @@ object FunctionsImpl extends Functions {
 
   override def max(a: List[Int]): Int = combine(a) /* (maxCombine) */
 
-  private def combine[T: Combiner](a: Iterable[T]): T = {
-    var elem = implicitly[Combiner[T]].unit
+  private def combine[T: Combiner](a: Iterable[T]): T = a.foldRight(implicitly[Combiner[T]].unit)(implicitly[Combiner[T]].combine(_, _))
 
-    a.foreach(e => elem = implicitly[Combiner[T]].combine(elem, e))
-    elem
-  }
+  //  private def combine[T: Combiner](a: Iterable[T]): T = {
+  //    var elem = implicitly[Combiner[T]].unit
+  //    a.foreach(e => elem = implicitly[Combiner[T]].combine(elem, e))
+  //    elem
+  //  }
 
 }
 
