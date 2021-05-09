@@ -33,8 +33,7 @@ class TicTacToeTest {
   @Test
   def testComputeAnyGames = {
     // Exercise 3 (ADVANCED!): implement computeAnyGame such that..
-//    computeAnyGame(O, 4) foreach {g => printBoards(g); println()} //assuming first player is always X
-    computeAnyGame(O, 1) foreach {g => printBoards(g); println()} //assuming first player is always X
+     computeAnyGame(O, 4) foreach {g => printBoards(g); println()} //assuming first player is always X
     //... X.. X.. X.. XO.
     //... ... O.. O.. O..
     //... ... ... X.. X..
@@ -43,6 +42,8 @@ class TicTacToeTest {
     //... ... .O. XO. XOO
     //... ... ... ... ...
     //... .X. .X. .X. .X.
+
+    assertEquals(3024, computeAnyGame(O, 4).length)
   }
 
   @Test

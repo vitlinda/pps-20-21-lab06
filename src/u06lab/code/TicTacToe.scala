@@ -38,16 +38,12 @@ object TicTacToe {
     if (find(board, x, y).isEmpty)
   } yield Mark(x, y, player) :: board
 
-  //  Stream(List(List(Mark(1,0,O),Mark(0,2,X),Mark(0,1,O),Mark(0,0,X)),List(Mark(0,2,X),Mark(0,1,O),Mark(0,0,X)),List(Mark(0,1,O),Mark(0,0,X)),List(Mark(0,0,X)), List()))
-  //  Stream(List(List(Mark(2,0,O),Mark(0,0,X),Mark(1,0,O),Mark(1,2,X)), List(Mark(0,0,X), Mark(1,0,O), Mark(1,2,X)), List(Mark(1,0,O), Mark(1,2,X)), List(Mark(1,2,X)), List()))
-  def computeAnyGame(player: Player, moves: Int): Stream[Game] = moves match {
-    case 0 => Stream(List(List()))
-    case m => {
-      for {
-        game <- computeAnyGame(player, m - 1)
-        board <- placeAnyMark(game.head, X)
-      } yield board :: game
-    }
+  def computeAnyGame(player: Player, moves: Int): Stream[Game] = (player, moves) match {
+    case (_, 0) => Stream(List(List()))
+    case (p, m) => for {
+      game <- computeAnyGame(if (p == X) O else X, m - 1)
+      board <- placeAnyMark(game.head, player)
+    } yield board :: game
   }
 
   def printBoards(game: Seq[Board]): Unit =
