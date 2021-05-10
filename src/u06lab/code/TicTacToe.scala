@@ -38,13 +38,15 @@ object TicTacToe {
     if (find(board, x, y).isEmpty)
   } yield Mark(x, y, player) :: board
 
-  def computeAnyGame(player: Player, moves: Int): Stream[Game] = (player, moves) match {
-    case (_, 0) => Stream(List(List()))
-    case (p, m) => for {
-      game <- computeAnyGame(if (p == X) O else X, m - 1)
+  def computeAnyGame(player: Player, moves: Int): Stream[Game] = moves match {
+    case 0 => Stream(List(List()))
+    case m => (for {
+      game <- computeAnyGame(player.other, m - 1)
       board <- placeAnyMark(game.head, player)
-    } yield board :: game
+    } yield board :: game) // takeWhile(!someoneWon(_))
   }
+
+  def someoneWon(game: Game): Boolean = ???
 
   def printBoards(game: Seq[Board]): Unit =
     for (y <- 0 to 2;

@@ -2,7 +2,7 @@ package u06lab.code
 
 import org.junit.jupiter.api.Assertions._
 import org.junit.jupiter.api.Test
-import u06lab.code.TicTacToe.{Mark, O, X, computeAnyGame, find, placeAnyMark, printBoards}
+import u06lab.code.TicTacToe.{Mark, O, X, computeAnyGame, find, placeAnyMark, someoneWon, printBoards}
 
 class TicTacToeTest {
 
@@ -42,15 +42,15 @@ class TicTacToeTest {
     //... ... .O. XO. XOO
     //... ... ... ... ...
     //... .X. .X. .X. .X.
-
     assertEquals(3024, computeAnyGame(O, 4).length)
   }
 
   @Test
   def testStopEachGames = {
     // Exercise 4 (VERY ADVANCED!) -- modify the above one so as to stop each game when someone won!!
+    val board1 = List(Mark(0, 0, X), Mark(0, 1, X), Mark(0, 2, X))
+    val board2 = List(Mark(1, 0, O), Mark(2, 2, O), Mark(2, 1, O))
+//    assertTrue(someoneWon(List(board1, board2)))
   }
-
-
 
 }
