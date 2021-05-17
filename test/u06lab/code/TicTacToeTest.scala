@@ -33,7 +33,7 @@ class TicTacToeTest {
   @Test
   def testComputeAnyGames = {
     // Exercise 3 (ADVANCED!): implement computeAnyGame such that..
-     computeAnyGame(O, 4) foreach {g => printBoards(g); println()} //assuming first player is always X
+//     computeAnyGame(O, 4) foreach {g => printBoards(g); println()} //assuming first player is always X
     //... X.. X.. X.. XO.
     //... ... O.. O.. O..
     //... ... ... X.. X..
@@ -43,6 +43,8 @@ class TicTacToeTest {
     //... ... ... ... ...
     //... .X. .X. .X. .X.
     assertEquals(3024, computeAnyGame(O, 4).length)
+
+    computeAnyGame(O, 5) foreach {g => printBoards(g); println()} //assuming first player is always X
   }
 
   @Test
@@ -50,7 +52,9 @@ class TicTacToeTest {
     // Exercise 4 (VERY ADVANCED!) -- modify the above one so as to stop each game when someone won!!
     val board1 = List(Mark(0, 0, X), Mark(0, 1, X), Mark(0, 2, X))
     val board2 = List(Mark(1, 0, O), Mark(2, 2, O), Mark(2, 1, O))
-//    assertTrue(someoneWon(List(board1, board2)))
+    printBoards(List(board1))
+    assertTrue(someoneWon(List(board1)))
+    assertFalse(someoneWon(List(board2)))
   }
 
 }

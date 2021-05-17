@@ -25,6 +25,17 @@ object TicTacToe {
   type Board = List[Mark]
   type Game = List[Board]
 
+  val winCases = List(
+    List((0, 0), (0, 1), (0, 2)),
+    List((2, 0), (2, 1), (2, 2)),
+    List((2, 0), (1, 1), (0, 2)),
+    List((0, 1), (1, 1), (2, 1)),
+    List((0, 2), (1, 2), (2, 2)),
+    List((0, 2), (1, 1), (2, 0)),
+    List((0, 0), (1, 1), (2, 2)),
+    List((0, 2), (1, 1), (2, 0)),
+  )
+
   @tailrec
   def find(board: Board, x: Int, y: Int): Option[Player] = board match {
     case Nil => None
@@ -43,10 +54,20 @@ object TicTacToe {
     case m => (for {
       game <- computeAnyGame(player.other, m - 1)
       board <- placeAnyMark(game.head, player)
-    } yield board :: game) // takeWhile(!someoneWon(_))
+    } yield board :: game) takeWhile (!someoneWon(_))
   }
 
-  def someoneWon(game: Game): Boolean = ???
+  def someoneWon(game: Game): Boolean = {
+    game.forall(board =>
+      winCases.exists(w => {
+        val players = w.map(s => find(board, s._1, s._2))
+        if (!players.contains(None) && players.distinct.length <= 1) {
+          println("Someone won")
+          true
+        } else
+          false
+      }))
+  }
 
   def printBoards(game: Seq[Board]): Unit =
     for (y <- 0 to 2;
