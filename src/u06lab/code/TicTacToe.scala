@@ -49,6 +49,7 @@ object TicTacToe {
     if (find(board, x, y).isEmpty)
   } yield Mark(x, y, player) :: board
 
+  // Exercise 3 (ADVANCED!): implement computeAnyGame such that..
   def computeAnyGame(player: Player, moves: Int): LazyList[Game] = moves match {
     case 0 => LazyList(List(List()))
     case m => for {
@@ -57,6 +58,7 @@ object TicTacToe {
     } yield if (someoneWon(game)) game else board :: game
   }
 
+  // Exercise 4 (VERY ADVANCED!) -- modify the above one so as to stop each game when someone won!!
   def someoneWon(game: Game): Boolean = {
     winCases.exists(w => {
       val players = w.map(s => find(game.head, s._1, s._2))
