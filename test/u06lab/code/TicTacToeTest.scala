@@ -44,17 +44,38 @@ class TicTacToeTest {
     //... .X. .X. .X. .X.
     assertEquals(3024, computeAnyGame(O, 4).length)
 
-    computeAnyGame(O, 5) foreach {g => printBoards(g); println()} //assuming first player is always X
+    computeAnyGame(O, 6) foreach {g => printBoards(g); println()} //assuming first player is always X
   }
 
   @Test
   def testStopEachGames = {
     // Exercise 4 (VERY ADVANCED!) -- modify the above one so as to stop each game when someone won!!
-    val board1 = List(Mark(0, 0, X), Mark(0, 1, X), Mark(0, 2, X))
-    val board2 = List(Mark(1, 0, O), Mark(2, 2, O), Mark(2, 1, O))
-    printBoards(List(board1))
-    assertTrue(someoneWon(List(board1)))
-    assertFalse(someoneWon(List(board2)))
+    val board1 = List(Mark(1, 0, O), Mark(2, 2, O), Mark(2, 1, O),Mark(0, 0, X), Mark(0, 1, X), Mark(0, 2, X))
+//    printBoards(List(board1))
+
+//    println(someoneWon(board1))
+
+    val board3 = List(List(Mark(2, 0, X), Mark(2, 1, X), Mark(2, 2, X)))
+    val board4 = List(List(Mark(2, 0, X), Mark(1, 1, X), Mark(0, 2, X)))
+    val board5 = List(List(Mark(0, 1, X), Mark(1, 1, X), Mark(2, 1, X)))
+    val board6 = List(List(Mark(0, 2, X), Mark(1, 2, X), Mark(2, 2, X)))
+    val board7 = List(List(Mark(0, 2, X), Mark(1, 1, X), Mark(2, 0, X)))
+    val board8 = List(List(Mark(0, 0, X), Mark(1, 1, X), Mark(2, 2, X)))
+    val board9 = List(List(Mark(0, 2, X), Mark(1, 1, X), Mark(2, 0, X)))
+
+//    assertTrue(someoneWon(board1))
+//    assertTrue(someoneWon(board3))
+//    assertTrue(someoneWon(board4))
+//    assertTrue(someoneWon(board5))
+//    assertTrue(someoneWon(board6))
+//    assertTrue(someoneWon(board7))
+//    assertTrue(someoneWon(board8))
+//    assertTrue(someoneWon(board9))
+
+
+    val board2 = List(List(Mark(1, 0, O), Mark(2, 2, O), Mark(2, 1, O)))
+//    assertFalse(someoneWon(board2))
+
   }
 
 }

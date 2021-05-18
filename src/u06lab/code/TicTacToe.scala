@@ -27,11 +27,11 @@ object TicTacToe {
 
   val winCases = List(
     List((0, 0), (0, 1), (0, 2)),
+    List((1, 0), (1, 1), (1, 2)),
     List((2, 0), (2, 1), (2, 2)),
-    List((2, 0), (1, 1), (0, 2)),
+    List((0, 0), (1, 0), (2, 0)),
     List((0, 1), (1, 1), (2, 1)),
     List((0, 2), (1, 2), (2, 2)),
-    List((0, 2), (1, 1), (2, 0)),
     List((0, 0), (1, 1), (2, 2)),
     List((0, 2), (1, 1), (2, 0)),
   )
@@ -49,27 +49,22 @@ object TicTacToe {
     if (find(board, x, y).isEmpty)
   } yield Mark(x, y, player) :: board
 
-  def computeAnyGame(player: Player, moves: Int): Stream[Game] = moves match {
-    case 0 => Stream(List(List()))
-    case m => (for {
+  def computeAnyGame(player: Player, moves: Int): LazyList[Game] = moves match {
+    case 0 => LazyList(List(List()))
+    case m => for {
       game <- computeAnyGame(player.other, m - 1)
       board <- placeAnyMark(game.head, player)
-    } yield board :: game) takeWhile (!someoneWon(_))
+    } yield if (someoneWon(game)) game else board :: game
   }
 
   def someoneWon(game: Game): Boolean = {
-    game.forall(board =>
-      winCases.exists(w => {
-        val players = w.map(s => find(board, s._1, s._2))
-        if (!players.contains(None) && players.distinct.length <= 1) {
-          println("Someone won")
-          true
-        } else
-          false
-      }))
+    winCases.exists(w => {
+      val players = w.map(s => find(game.head, s._1, s._2))
+      if (!players.contains(None) && players.distinct.length <= 1) true else false
+    })
   }
 
-  def printBoards(game: Seq[Board]): Unit =
+  def printBoards(game: Seq[Board]): Unit = {
     for (y <- 0 to 2;
          board <- game.reverse;
          x <- 0 to 2) {
@@ -79,5 +74,6 @@ object TicTacToe {
         if (board == game.head) println()
       }
     }
+  }
 
 }
