@@ -25,6 +25,7 @@ object TicTacToe {
   type Board = List[Mark]
   type Game = List[Board]
 
+  //sarebbe stato meglio identificare i winCases algoritmicamente, non estensionalmente
   val winCases = List(
     List((0, 0), (0, 1), (0, 2)),
     List((1, 0), (1, 1), (1, 2)),
@@ -36,12 +37,7 @@ object TicTacToe {
     List((0, 2), (1, 1), (2, 0)),
   )
 
-  @tailrec
-  def find(board: Board, x: Int, y: Int): Option[Player] = board match {
-    case Nil => None
-    case h :: _ if (h.x == x && h.y == y) => Some(h.player)
-    case _ :: t => find(t, x, y)
-  }
+  def find(board: Board, x: Int, y: Int): Option[Player] = board.find(m => m.x == x && m.y == y).map(m => m.player)
 
   def placeAnyMark(board: Board, player: Player): Seq[Board] = for {
     x <- 0 to 2
@@ -62,7 +58,7 @@ object TicTacToe {
   def someoneWon(game: Game): Boolean = {
     winCases.exists(w => {
       val players = w.map(s => find(game.head, s._1, s._2))
-      if (!players.contains(None) && players.distinct.length <= 1) true else false
+      !players.contains(None) && players.distinct.length <= 1
     })
   }
 
